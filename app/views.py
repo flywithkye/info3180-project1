@@ -1,10 +1,10 @@
 import os
-from app import app, db, login_manager
+from app import app, db
 from flask import render_template, request, redirect, url_for, flash, session, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.utils import secure_filename
-from app.models import UserProfile
-from app.forms import LoginForm
+from app.models import PropertyInfo
+from app.forms import PropertyForm
 
 
 ###
@@ -23,47 +23,66 @@ def about():
     return render_template('about.html', name="Mary Jane")
 
 
-@app.route('/upload', methods=['POST', 'GET'])
-def upload():
-    # Instantiate your form class
+@app.route('/properties/create', methods=['POST', 'GET'])
+def create_property():
+    # Instantiate your form class    
+    form = PropertyForm()
+    
+    # Validate file upload on submit
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            title = form.title.data
+            bedrooms = form.num_bedrooms.data
+            bathrooms = form.num_bathrooms.data
+            location = form.location.data
+            price = form.price.data
+            type = form.type.data
+            description = form.description.data
+            
+            # Get file data
+            pic = form.photo.data # we could also use request.files['photo']
+            picfilename = secure_filename(pic.filename)
+            pic.save(os.path.join(app.config['UPLOAD_FOLDER'], picfilename))
+            
+            property = PropertyInfo(
+                title = title,
+                type = type,
+                filename = picfilename,
+                bedroom_no = bedrooms,
+                bathroom_no = bathrooms,
+                price = price,
+                location = location,
+                description = description
+            )
+            
+            db.session.add(property)
+            db.session.commit()
+            
 
+            flash('Property Saved', 'success')
+            return redirect(url_for('view_properties')) 
+        flash_errors(form)
+    
     # Validate file upload on submit
     if form.validate_on_submit():
         # Get file data and save to your uploads folder
 
-        flash('File Saved', 'success')
-        return redirect(url_for('home')) # Update this to redirect the user to a route that displays all uploaded image files
+        flash('Property Saved', 'success')
+        return redirect(url_for('view_properties')) 
 
-    return render_template('upload.html')
+    return render_template('property_form.html', form=form)
 
 
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    form = LoginForm()
+@app.route('/properties')
+def view_properties():
+    """Render the website's page that displays all properties."""
+    return render_template('about.html')
 
-    # change this to actually validate the entire form submission
-    # and not just one field
-    if form.username.data:
-        # Get the username and password values from the form.
 
-        # Using your model, query database for a user based on the username
-        # and password submitted. Remember you need to compare the password hash.
-        # You will need to import the appropriate function to do so.
-        # Then store the result of that query to a `user` variable so it can be
-        # passed to the login_user() method below.
-
-        # Gets user id, load into session
-        login_user(user)
-
-        # Remember to flash a message to the user
-        return redirect(url_for("home"))  # The user should be redirected to the upload form instead
-    return render_template("login.html", form=form)
-
-# user_loader callback. This callback is used to reload the user object from
-# the user ID stored in the session
-@login_manager.user_loader
-def load_user(id):
-    return db.session.execute(db.select(UserProfile).filter_by(id=id)).scalar()
+@app.route('/properties/<propertyid>')
+def view_property():
+    """Render the website's page that displays a selected property's details."""
+    return render_template('about.html')
 
 ###
 # The functions below should be applicable to all Flask apps.

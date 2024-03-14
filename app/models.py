@@ -1,17 +1,17 @@
 from . import db
 
-
-class UserProfile(db.Model):
-    # You can use this to change the table name. The default convention is to use
-    # the class name. In this case a class name of UserProfile would create a
-    # user_profile (singular) table, but if we specify __tablename__ we can change it
-    # to `user_profiles` (plural) or some other name.
-    __tablename__ = 'user_profiles'
+class PropertyInfo(db.Model):
+    __tablename__ = 'property_info'
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(80))
-    last_name = db.Column(db.String(80))
-    username = db.Column(db.String(80), unique=True)
+    title = db.Column(db.String(80))
+    type = db.Column(db.String(80))
+    filename = db.Column(db.String(255))
+    bedroom_no = db.Column(db.Integer())
+    bathroom_no = db.Column(db.Integer())
+    price = db.Column(db.Integer())
+    location = db.Column(db.String(80))
+    description = db.Column(db.String(80))
 
     def is_authenticated(self):
         return True
@@ -29,4 +29,4 @@ class UserProfile(db.Model):
             return str(self.id)  # python 3 support
 
     def __repr__(self):
-        return '<User %r>' % (self.username)
+        return '<Property %r>' % (self.title)
