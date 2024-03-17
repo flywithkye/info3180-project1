@@ -2,19 +2,231 @@ body {
     padding-top: 5rem;
 }
 
-.form-login {
-    max-width: 330px;
-    padding: 15px;
+.icon {
+    display: inline-block;
 }
 
-.form-login input[type="text"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+#title {
+    font-size: 34px;
+    color: rgb(72, 136, 226);
 }
 
-.form-login input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+#homes {
+    display: grid;
+    gap: 30px 30px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);  
+    padding: 15px 0px 15px 0px;
+}
+
+.property {    
+  background: white;
+  border: 0.5px solid #b9babb;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-radius: 10px 10px 12px 12px;
+  min-height: 370px;
+  position: relative;
+}
+
+.propertypic {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px 10px 0px 0px;
+}
+
+#propertyinner{
+    padding: 0px 15px 0px 15px;
+}
+
+#propertyspacer{
+    min-height: 50px; 
+}
+
+#propertytitle {
+    padding: 10px 0px 0px 0px;
+    margin-top: 3px;
+    color: rgb(72, 72, 72);
+    font-weight: bold;
+}
+
+#propertyplace {
+    padding: 0px 0px 0px 0px;
+    margin-top: -10px;
+    color: rgb(93, 92, 92);
+}
+
+#propertyprice {
+    background: rgb(79, 193, 181);
+    color: rgb(249, 249, 249);
+    border-radius: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    min-width: 90px;    
+    max-width: 115px;
+    margin: 18px 0px 10px 0px;
+    padding: 3px 7px 3px 7px;
+}
+
+.property button{    
+  color: rgb(255, 255, 255);
+  background: rgb(56, 127, 226);
+  border: 0px solid;
+  border-radius: 0px 0px 12px 12px;
+  width: 100%;
+  display: inline-block;
+  padding: 11px 0px 11px 0px;  
+  margin: 40px 0px auto 0px;
+  text-align: center;
+  font-weight: bold;
+  position: absolute;
+  bottom: 0px;
+}
+
+.property button:hover {
+    background-color: rgb(41, 107, 200);
+    cursor: pointer;
+}
+
+
+
+
+#home_title {
+    font-size: 34px;
+    color: rgb(72, 136, 226);
+}
+
+.selected_icon {
+    display: inline-block;
+    padding-right: 5px;
+}
+
+#selected_main {
+    padding: 15px 0px 30px 0px;
+}
+
+#selected_property {    
+    background: white;
+    border: 1.3px solid #b9babb;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border-radius: 10px 10px 12px 12px;
+    width: 93%;
+    min-height: 340px;
+    margin: auto;
+    display: flex;
+}
+
+#selected_picdiv {
+    width: 515px;
+    min-height: 340px;
+    padding: 0px 25px 0px 0px;
+    display: inline-block;
+}
+
+#selected_pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px 0px 0px 10px;
+}
+
+#selected_propertyinfo {   
+    padding: 10px 15px 20px 15px;
+    display:flex;
+    flex-direction: column;
+    max-width: 500px;
+}
+
+#selected_propertyinfo #inner1, #selected_propertyinfo #inner2{  
+    display: flex;
+}
+
+#selected_title{
+    font-size: 24px;
+    color: rgb(72, 72, 72);
+    font-weight: bolder;
+    margin: 20px 0px 10px 0px;
+}
+
+#selected_price{
+    background: rgb(79, 193, 181);
+    color: rgb(249, 249, 249);
+    border-radius: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    min-width: 90px;    
+    max-width: 115px;
+    margin: 10px 0px 15px 0px;
+    padding: 3px 15px 3px 15px;
+}
+
+#selected_type{
+    background: rgb(145, 133, 234);
+    color: rgb(249, 249, 249);
+    border-radius: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    min-width: 90px;    
+    max-width: 115px;
+    margin: 10px 0px 15px 12px;
+    padding: 3px 15px 3px 15px;
+}
+
+#selected_description{
+    width: 97%;
+}
+
+#selected_bedrooms{
+    margin: 0px 0px 0px 0px;
+    color: rgb(74, 74, 74);
+}
+
+#selected_bathrooms{
+    margin: 0px 0px 0px 45px;
+    color: rgb(74, 74, 74);
+}
+
+#selected_place{
+    margin: 10px 0px 0px 0px;
+    color: rgb(74, 74, 74);
+}
+
+#selected_btn{   
+    width: 60%; 
+}
+
+#emailbtn{    
+    color: white;
+    background: rgb(56, 127, 226);
+    border: 0px solid;
+    border-radius: 7px;
+    display: inline-block;
+    padding: 7px 17px 7px 17px;  
+    margin: 25px 0px 10px 0px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#emailbtn:hover{   
+    background-color: rgb(41, 107, 200);
+    cursor: pointer;
+}
+
+#selected_button{    
+    color: white;
+    background: rgb(56, 127, 226);
+    border: 0px solid;
+    border-radius: 11px;
+    display: inline-block;
+    padding: 8px 17px 8px 17px;  
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
+}
+
+#selected_button:hover {
+    background-color: rgb(41, 107, 200);
+    cursor: pointer;
 }

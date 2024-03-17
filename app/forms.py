@@ -11,7 +11,7 @@ def isint_check(form, field):
 class PropertyForm(FlaskForm):
     photo = FileField('Photo', validators=[
         FileRequired(),
-        FileAllowed(['jpg', 'png'], 'Images only!')
+        FileAllowed(['jpg', 'jpeg', 'png'], 'PNG, JPG/JPEG Images only!')
     ])
     title = StringField('Title', validators=[InputRequired()])
     num_bedrooms = StringField('No. of Bedrooms', validators=[InputRequired(), isint_check])

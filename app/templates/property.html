@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h2 id="home_title">{{ property.get_type() }} Details</h2>
+    <div id="selected_main">
+        <div id="selected_property">
+            <div id="selected_picdiv">
+                <img src="{{ url_for('get_image', filename=property.get_filename()) }}" id="selected_pic"/>
+            </div>
+            <div id="selected_propertyinfo">
+                <div id="selected_title"> 
+                    <p>
+                        <img src="{{ url_for('static', filename='pics/home_icon.png') }}" class="icon"/>
+                        {{ property.get_title() }}
+                    </p>
+                </div>  
+
+                <div id="inner1">
+                    <div id="selected_price"> 
+                        {{ "${:,}".format(property.get_price()) }} 
+                    </div>     
+                    <div id="selected_type"> 
+                        {{ property.get_type() }} 
+                    </div>    
+                </div>
+
+                <p id="selected_description"> 
+                    {{ property.get_description() }} 
+                </p>   
+
+                <div id="inner2">  
+                    <p id="selected_bedrooms"> 
+                        <img src="{{ url_for('static', filename='pics/bed_icon.png') }}" class="selected_icon"/>
+                        {{ property.get_bedroom_no() }} Bedrooms
+                    </p>   
+                    <p id="selected_bathrooms"> 
+                        <img src="{{ url_for('static', filename='pics/bath_icon.png') }}" class="selected_icon"/>
+                        {{ property.get_bathroom_no() }} Bathrooms
+                    </p>   
+                </div> 
+
+                <p id="selected_place"> 
+                    <img src="{{ url_for('static', filename='pics/geo_icon_g.png') }}" class="icon"/>
+                    {{ property.get_location() }} 
+                </p>
+                
+                <div id="selected_btn">
+                    <button id="emailbtn" onclick="" type="button">
+                        Email Realtor
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button id="selected_button" onclick="location.href='{{ url_for('view_properties') }}'" type="button">
+        <img src="{{ url_for('static', filename='pics/left_icon.png') }}" class="selected_icon"/>
+        All Properties
+    </button>
+{% endblock %}

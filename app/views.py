@@ -1,6 +1,6 @@
 import os
 from app import app, db
-from flask import render_template, request, redirect, url_for, flash, session, abort
+from flask import render_template, request, redirect, url_for, flash, session, abort, send_from_directory
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.utils import secure_filename
 from app.models import PropertyInfo
@@ -35,7 +35,7 @@ def create_property():
             bedrooms = form.num_bedrooms.data
             bathrooms = form.num_bathrooms.data
             location = form.location.data
-            price = form.price.data
+            price = form.price.data.replace(',', '')
             type = form.type.data
             description = form.description.data
             
@@ -76,14 +76,25 @@ def create_property():
 @app.route('/properties')
 def view_properties():
     """Render the website's page that displays all properties."""
-    return render_template('about.html')
+    properties = db.session.execute(db.select(PropertyInfo)).scalars()  
+    #for home in properties:
+        #print(home)
+    return render_template('properties.html', properties=properties) 
+
+
+@app.route("/properties/pics/<filename>")
+def get_image(filename):
+    root_dir = os.getcwd()
+
+    return send_from_directory(os.path.join(root_dir, app.config['UPLOAD_FOLDER']), filename)
 
 
 @app.route('/properties/<propertyid>')
-def view_property():
-    """Render the website's page that displays a selected property's details."""
-    return render_template('about.html')
-
+def view_property(propertyid):
+    """Render the website's page that displays a selected property's details."""    
+    property = db.get_or_404(PropertyInfo, propertyid)
+    print(property)    
+    return render_template('property.html', property=property)
 ###
 # The functions below should be applicable to all Flask apps.
 ###
@@ -119,3 +130,10 @@ def add_header(response):
 def page_not_found(error):
     """Custom 404 page."""
     return render_template('404.html'), 404
+
+@app.context_processor
+def utility_functions():
+    def print_in_console(message):
+        print (str(message))
+        
+    return dict(mdebug=print_in_console)
