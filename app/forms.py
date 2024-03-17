@@ -6,7 +6,7 @@ from wtforms.validators import InputRequired, ValidationError
 
 def isint_check(form, field):
     if isinstance(field.data, int):
-        raise ValidationError('Must be in integer')
+        raise ValidationError('Must be an integer')
     
 class PropertyForm(FlaskForm):
     photo = FileField('Photo', validators=[
@@ -17,7 +17,7 @@ class PropertyForm(FlaskForm):
     num_bedrooms = StringField('No. of Bedrooms', validators=[InputRequired(), isint_check])
     num_bathrooms = StringField('No. of Bathrooms', validators=[InputRequired(), isint_check])
     location = StringField('Location', validators=[InputRequired()]) 
-    price = StringField('Price', validators=[InputRequired()])
+    price = StringField('Price', validators=[InputRequired(), isint_check])
     type = SelectField('Property Type', choices=['House', 'Apartment']) 
     description = StringField('Description', validators=[InputRequired()], widget=TextArea())
     

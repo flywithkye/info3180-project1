@@ -34,7 +34,7 @@ def create_property():
             title = form.title.data
             bedrooms = form.num_bedrooms.data
             bathrooms = form.num_bathrooms.data
-            location = form.location.data
+            location = form.location.data.replace(',', '')
             price = form.price.data.replace(',', '')
             type = form.type.data
             description = form.description.data
